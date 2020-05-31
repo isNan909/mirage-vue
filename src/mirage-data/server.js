@@ -15,7 +15,7 @@ export function makeServer({ environment = 'development' } = {}) {
           const headers = {};
           const podcasters = JSON.parse(request.requestBody);
           return new Response(200, headers, {
-            message: `You started following: ${podcasters.heading}`
+            msg: `You followed : ${podcasters.heading} for your podcast. Thanks!`
           });
         },
         { timing: 1000 }

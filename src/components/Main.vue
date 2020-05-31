@@ -20,10 +20,10 @@
             >
             <button
               type="button"
-              @click="newFollower(p)"
+              @click="newFollower(podcasters)"
               class="btn btn-primary follow"
               data-toggle="modal"
-              data-target="#followModal"
+              data-target="#exampleModal"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,18 +46,11 @@
       </div>
     </div>
     <!-- Modal -->
-    <div
-      class="modal fade"
-      id="followModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="followModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="followModalLabel">Confirmation</h5>
+            <h5 class="modal-title" id="exampleModal">Confirmation</h5>
             <button
               type="button"
               class="close"
@@ -71,11 +64,7 @@
             <p>Are you sure you want to follow the podcast?</p>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-light"
-              data-dismiss="modal"
-            >
+            <button type="button" class="btn btn-light" data-dismiss="modal">
               Close
             </button>
             <button type="button" class="btn btn-primary" @click="addFollower">
@@ -100,9 +89,9 @@ export default {
       followedPodcast: {}
     };
   },
-  method: {
-    newFollower(p) {
-      this.followedPodcast = p;
+  methods: {
+    newFollower(podcasters) {
+      this.followedPodcast = podcasters;
     },
     addFollower() {
       fetch('/api/podcasters', {
@@ -111,7 +100,9 @@ export default {
       })
         .then(res => res.json())
         .then(data => {
-          alert(data.message);
+          $('#exampleModal').modal('hide');
+          $('.modal-backdrop').remove();
+          alert(data.msg);
         });
     }
   },

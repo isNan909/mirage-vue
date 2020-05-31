@@ -1,18 +1,15 @@
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
 import App from './App.vue';
 import router from './router';
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import { makeServer } from '@/mirage-data/server';
 
 if (process.env.NODE_ENV === 'development') {
   makeServer();
 }
-
-Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 

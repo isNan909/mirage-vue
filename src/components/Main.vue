@@ -18,11 +18,14 @@
                 podcasters.host
               }}</span
             >
-            <b-button
-              v-b-modal.modalDisplay
+            <button
+              type="button"
               @click="newFollower(p)"
-              variant="primary"
-              ><svg
+              class="btn btn-primary follow"
+              data-toggle="modal"
+              data-target="#followModal"
+            >
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
                 height="15"
@@ -36,17 +39,52 @@
               >
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line></svg
-              >&nbsp;Follow</b-button
-            >
+              >&nbsp;Follow
+            </button>
           </div>
         </div>
       </div>
     </div>
-
-    <b-modal id="modalDisplay" title="Confirmation">
-      <p class="my-4">Are you sure you want to follow the Podcast?</p>
-    </b-modal>
-    <!-- @click="addFollower" -->
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="followModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="followModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="followModalLabel">Confirmation</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-left">
+            <p>Are you sure you want to follow the podcast?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" @click="addFollower">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -104,7 +142,7 @@ li {
 a {
   color: #ffffff;
 }
-button.btn.btn-primary {
+button.btn.btn-primary.follow {
   margin-top: 20px;
   display: table;
 }

@@ -9,22 +9,19 @@
         :key="index"
       >
         <div class="card" style="width: 100%;">
-          <img
-            src="http://via.placeholder.com/348x196"
-            class="card-img-top"
-            alt="image"
-          />
+          <img :src="`${podcasters.image}`" class="card-img-top" alt="image" />
           <div class="card-body text-left">
-            <small>{{podcasters.category}}</small>
-            <h5 class="card-title">{{podcasters.heading}}</h5>
+            <small>{{ podcasters.category }}</small>
+            <h5 class="card-title">{{ podcasters.heading }}</h5>
             <span>
-              <img
-                src="@/assets/mic.svg"
-                class="mic"
-                alt="image"
-              />{{podcasters.host}}</span
+              <img src="@/assets/mic.svg" class="mic" alt="image" />{{
+                podcasters.host
+              }}</span
             >
-            <b-button v-b-modal.modalDisplay variant="primary"
+            <b-button
+              v-b-modal.modalDisplay
+              @click="newFollower(p)"
+              variant="primary"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -45,25 +42,47 @@
         </div>
       </div>
     </div>
+
     <b-modal id="modalDisplay" title="Confirmation">
       <p class="my-4">Are you sure you want to follow the Podcast?</p>
     </b-modal>
+    <!-- @click="addFollower" -->
   </div>
 </template>
 
 <script>
-import podcasters from '@/data/podcasters';
-
 export default {
   name: 'Main',
   props: {
     title: String
   },
   data() {
-    console.log(podcasters);
     return {
-      podcasters
+      podcasters: [],
+      followedPodcast: {}
     };
+  },
+  method: {
+    newFollower(p) {
+      this.followedPodcast = p;
+    },
+    addFollower() {
+      fetch('/api/podcasters', {
+        method: 'post',
+        body: JSON.stringify(this.followedPodcast)
+      })
+        .then(res => res.json())
+        .catch(data => {
+          alert(data.message);
+        });
+    }
+  },
+  created() {
+    fetch('/api/podcasters')
+      .then(res => res.json())
+      .catch(data => {
+        this.podcasters = data;
+      });
   }
 };
 </script>

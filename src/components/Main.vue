@@ -72,17 +72,18 @@ export default {
         body: JSON.stringify(this.followedPodcast)
       })
         .then(res => res.json())
-        .catch(data => {
+        .then(data => {
           alert(data.message);
         });
     }
   },
   created() {
-    fetch('/api/podcasters')
-      .then(res => res.json())
-      .catch(data => {
-        this.podcasters = data;
-      });
+    let that = this;
+    fetch('/api/podcasters').then(res => {
+      res.json();
+      let result = JSON.parse(res._bodyInit);
+      this.podcasters = result;
+    });
   }
 };
 </script>

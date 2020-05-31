@@ -7,7 +7,7 @@ export function makeServer({ environment = 'development' } = {}) {
     routes() {
       this.namespace = '/api';
       this.get('/podcasters', schema => {
-        return new Response(100, {}, podcasters);
+        return new Response(1000, {}, podcasters);
       });
       this.post(
         '/podcasters',
